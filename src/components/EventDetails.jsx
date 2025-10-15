@@ -33,17 +33,17 @@ function EventDetails() {
       <Navbar />
       <main className={styles.page}>
         <section className={styles.hero}>
-          <div
-            className={styles.heroMedia}
-            style={{ backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.75)), url(${event.thumbnail})` }}
-          >
-            <div className={styles.heroContent}>
+          <div className={styles.heroInner}>
+            <div className={styles.heroInfo}>
               <p className={styles.eyebrow}>Event recap</p>
               <h1>{event.title}</h1>
               <div className={styles.meta}>
                 <span>{event.date}</span>
                 <span>{event.location}</span>
               </div>
+            </div>
+            <div className={styles.heroMedia}>
+              <img src={event.thumbnail} alt={`${event.title} overview`} loading="lazy" />
             </div>
           </div>
         </section>

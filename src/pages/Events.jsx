@@ -30,15 +30,14 @@ function Events() {
           <div className={styles.cardGrid}>
             {events.map((event) => (
               <article key={event.id} className={styles.card}>
-                <div className={styles.cardMedia}>
-                  <img src={event.thumbnail} alt={event.title} loading="lazy" />
-                  <div className={styles.cardMeta}>
-                    <span>{event.date}</span>
-                    <span>{event.location}</span>
+                <header className={styles.cardHeader}>
+                  <div className={styles.headerText}>
+                    <span className={styles.dateBadge}>{event.date}</span>
+                    <h3>{event.title}</h3>
                   </div>
-                </div>
+                  <div className={styles.locationPill}>{event.location}</div>
+                </header>
                 <div className={styles.cardBody}>
-                  <h3>{event.title}</h3>
                   <p className={styles.cardSummary}>{event.summary}</p>
                   <ul className={styles.highlightList}>
                     {event.highlights.map((item) => (

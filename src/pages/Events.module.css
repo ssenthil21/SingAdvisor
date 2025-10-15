@@ -62,6 +62,7 @@
   line-height: 1.6;
 }
 
+
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -73,59 +74,66 @@
   flex-direction: column;
   background: linear-gradient(180deg, #f9fafb 0%, #ffffff 70%, #f1f5f9 100%);
   border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
   transition: transform 200ms ease, box-shadow 200ms ease;
   border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 2rem;
+  gap: 1.5rem;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 40px 70px rgba(15, 23, 42, 0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
 }
 
-.cardMedia {
-  position: relative;
-  overflow: hidden;
-}
-
-.cardMedia img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-.cardMeta {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
+.cardHeader {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.cardMeta span {
-  background: rgba(15, 23, 42, 0.72);
-  color: #f8fafc;
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  backdrop-filter: blur(4px);
-}
-
-.cardBody {
-  padding: 2rem 1.75rem 0;
-  display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.cardBody h3 {
-  font-size: 1.35rem;
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.headerText h3 {
+  font-size: 1.4rem;
   color: #0f172a;
   margin: 0;
+  line-height: 1.3;
+}
+
+.dateBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.12);
+  color: #0369a1;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.locationPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.12);
+  color: #312e81;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .cardSummary {
@@ -149,10 +157,10 @@
 
 .cardFooter {
   margin-top: auto;
-  padding: 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(148, 163, 184, 0.25);
 }
 
@@ -194,13 +202,16 @@
     padding: 5rem 1.25rem 4rem;
   }
 
-  .cardMeta {
-    bottom: 0.75rem;
-    left: 0.75rem;
-    right: 0.75rem;
+  .card {
+    padding: 1.75rem;
   }
 
-  .cardFooter {
-    padding: 1.5rem;
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .locationPill {
+    align-self: flex-start;
   }
 }

@@ -20,11 +20,12 @@ function Events() {
       <main className={styles.page}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <p className={styles.eyebrow}>Signature Experiences</p>
-            <h1 className={styles.title}>Events designed to inspire action</h1>
+            <div>
+              <p className={styles.eyebrow}>Signature experiences</p>
+              <h1 className={styles.title}>Where leaders connect, learn, and celebrate</h1>
+            </div>
             <p className={styles.subtitle}>
-              Explore the conversations, masterclasses, and appreciation evenings that bring our community together.
-              Each event is carefully crafted so you walk away with clarity, confidence, and next steps you can act on right away.
+              Browse upcoming gatherings and revisit highlights without the extra scroll. We&apos;ve trimmed the details so you can quickly decide what to explore next.
             </p>
           </div>
         </section>
@@ -38,46 +39,31 @@ function Events() {
             <div className={styles.upcomingGrid}>
               {upcomingEvents.map((event) => (
                 <article key={event.id} className={styles.upcomingCard}>
-                  <div className={styles.upcomingMedia}>
-                    <img src={event.thumbnail} alt={`${event.title} preview`} loading="lazy" />
-                  </div>
-                  <div className={styles.upcomingContent}>
+                  <img src={event.thumbnail} alt={`${event.title} preview`} loading="lazy" />
+                  <div className={styles.upcomingBody}>
                     <header className={styles.upcomingHeader}>
+                      <h3>{event.title}</h3>
                       <div className={styles.upcomingMeta}>
                         <span className={styles.dateBadge}>{event.date}</span>
                         <span className={styles.locationPill}>{event.location}</span>
                       </div>
-                      <h3>{event.title}</h3>
                     </header>
                     <p className={styles.upcomingSummary}>{event.summary}</p>
-                    <ul className={styles.highlightList}>
-                      {event.highlights.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                    {event.registration && (
-                      <div className={styles.registrationBlock}>
-                        <p>{event.registration.note}</p>
-                        <div className={styles.registrationActions}>
-                          <a
-                            href={event.registration.ctaUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className={styles.primaryCta}
-                          >
-                            {event.registration.ctaLabel}
-                          </a>
-                          <Link className={styles.secondaryCta} to={`/events/${event.id}`}>
-                            View full details
-                          </Link>
-                        </div>
-                        {event.registration.contactNumber && (
-                          <span className={styles.contactNote}>
-                            Call {event.registration.contactNumber} for assistance
-                          </span>
-                        )}
-                      </div>
-                    )}
+                    <div className={styles.upcomingActions}>
+                      {event.registration && (
+                        <a
+                          href={event.registration.ctaUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.primaryCta}
+                        >
+                          {event.registration.ctaLabel}
+                        </a>
+                      )}
+                      <Link className={styles.secondaryCta} to={`/events/${event.id}`}>
+                        View details
+                      </Link>
+                    </div>
                   </div>
                 </article>
               ))}
@@ -93,30 +79,20 @@ function Events() {
           <div className={styles.cardGrid}>
             {pastEvents.map((event) => (
               <article key={event.id} className={styles.card}>
-                <header className={styles.cardHeader}>
-                  <div className={styles.headerText}>
-                    <span className={styles.dateBadge}>{event.date}</span>
-                    <h3>{event.title}</h3>
-                  </div>
-                  <div className={styles.locationPill}>{event.location}</div>
-                </header>
+                <div className={styles.cardMedia}>
+                  <img src={event.thumbnail} alt={`${event.title} highlight`} loading="lazy" />
+                </div>
                 <div className={styles.cardBody}>
+                  <span className={styles.dateBadge}>{event.date}</span>
+                  <h3>{event.title}</h3>
                   <p className={styles.cardSummary}>{event.summary}</p>
-                  <ul className={styles.highlightList}>
-                    {event.highlights.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
                 </div>
-                <div className={styles.cardFooter}>
-                  <div className={styles.speakers}>
-                    <span className={styles.speakersLabel}>Featured voices</span>
-                    <p>{event.speakers.join(' • ')}</p>
-                  </div>
+                <footer className={styles.cardFooter}>
+                  <span className={styles.locationPill}>{event.location}</span>
                   <Link className={styles.cardCta} to={`/events/${event.id}`}>
-                    View recap
+                    {event.isUpcoming ? 'View details' : 'View recap'}
                   </Link>
-                </div>
+                </footer>
               </article>
             ))}
           </div>

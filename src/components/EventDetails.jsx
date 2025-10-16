@@ -67,8 +67,15 @@ function EventDetails() {
           </div>
           <div className={styles.photoGrid}>
             {event.photos.map((photo, index) => (
-              <figure key={photo} className={styles.photoCard}>
-                <img src={photo} alt={`${event.title} highlight ${index + 1}`} loading="lazy" />
+              <figure
+                key={photo.src}
+                className={`${styles.photoCard} ${photo.layout ? styles[photo.layout] : ''}`.trim()}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt || `${event.title} highlight ${index + 1}`}
+                  loading="lazy"
+                />
               </figure>
             ))}
           </div>

@@ -13,7 +13,38 @@ export const events = [
       'Actionable frameworks to stretch CPF and SRS savings for retirement.',
       'Collaborative planning clinic for families managing long-term care goals.'
     ],
-    photos: ['/Images/Events/Aug-25 (1).jpeg'],
+    photos: [
+      {
+        src: '/Images/Events/Aug-25 (1).jpeg',
+        alt: 'Guests arriving for the Client Appreciation Evening',
+        layout: 'large'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Speaker sharing wellness insights on stage',
+        layout: 'tall'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Participants engaging in roundtable discussions',
+        layout: 'wide'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Close-up of mobility wellness demonstration',
+        layout: 'square'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Guests networking over refreshments',
+        layout: 'wide'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Event team supporting attendees at registration',
+        layout: 'square'
+      }
+    ],
     videos: [
       {
         title: 'Evening Highlights',
@@ -40,7 +71,38 @@ export const events = [
       'Interactive walkthrough on optimising CPF and SRS portfolios.',
       'Breakout conversations on preparing households for the unexpected.'
     ],
-    photos: ['/Images/Events/Sep-29 (1).jpeg'],
+    photos: [
+      {
+        src: '/Images/Events/Sep-29 (1).jpeg',
+        alt: 'Crowd gathered for the Client Appreciation Forum',
+        layout: 'large'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Healthcare expert answering audience questions',
+        layout: 'wide'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Attendees taking notes during the planning clinic',
+        layout: 'tall'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Small group breakout conversation on financial readiness',
+        layout: 'square'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Guests sharing experiences during networking session',
+        layout: 'wide'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1545239351-325dd9ec0d43?auto=format&fit=crop&w=1000&q=80',
+        alt: 'Event coordinators preparing materials',
+        layout: 'square'
+      }
+    ],
     videos: [
       {
         title: 'Forum Recap',

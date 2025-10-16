@@ -1,173 +1,176 @@
-// import React from 'react';
-// import { useParams } from 'react-router-dom';
-// import Navbar from '../components/Navbar';
-
-// function EventDetails() {
-//   const { id } = useParams();
-
-//   const eventDetails = {
-//     1: {
-//       title: 'Client Appreciation Event 1',
-//       image: '/Images/Events/Aug-25 (1).jpeg',
-//       description: `The Client Appreciation Event hosted by SP-VK Vision Financial focuses on health and financial security. 
-//         Mr. S G Sivakumar discusses updates on osteoarthritis knee treatments. Venkat Kumar explores how CPF and SRS can be 
-//         leveraged for a secure retirement. Akila Manikandan talks about strategies for a worry-free retirement.`,
-//     },
-//     2: {
-//       title: 'Client Appreciation Event 2',
-//       image: '/Images/Events/Sep-29 (1).jpeg',
-//       description: `This Client Appreciation Event invites families and friends to learn about nasal allergies and sinus issues. 
-//         Dr. Ravi Seshadri, an ENT surgeon, presents valuable insights on managing these conditions. Venkat Kumar covers CPF and SRS 
-//         options for securing a comfortable retirement. Akila Manikandan discusses financial planning for a worry-free future.`,
-//     },
-//   };
-
-//   const event = eventDetails[id];
-
-//   if (!event) {
-//     return (
-//       <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
-//         <p style={{ textAlign: 'center', fontSize: '18px', color: '#4a5568' }}>Event not found.</p>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <>
-//       <div style={{ marginTop: '80px' }}></div>
-//       <Navbar />
-
-//       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '24px 16px' }}>
-//         {/* Page Heading */}
-//         <h1 style={{ fontSize: '32px', textAlign: 'center', fontWeight: 'bold', marginBottom: '24px' }}>
-//           {event.title}
-//         </h1>
-
-//         {/* Card Layout */}
-//         <div
-//           style={{
-//             display: 'flex',
-//             flexDirection: 'row', // Use row direction for left-right layout
-//             border: '1px solid #e2e8f0',
-//             borderRadius: '8px',
-//             overflow: 'hidden',
-//             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-//             flexWrap: 'wrap', // Wrap on smaller screens
-            
-//           }}
-          
-//         >
-          
-//           {/* Left side: Image */}
-//           <div style={{ flex: '1', minWidth: '300px', maxWidth: '50%', margin: 0 }}>
-//             <div style={{ display: 'flex', justifyContent: 'center' }}> {/* Center image on mobile */}
-//               <img
-//                 src={event.image}
-//                 alt={event.title}
-//                 style={{
-//                   width: '100%',
-//                   height: 'auto',
-//                   objectFit: 'cover',
-//                 }}
-//               />
-//             </div>
-//           </div>
-
-//           {/* Right side: Description */}
-//           <div style={{ flex: '1', padding: '24px', textAlign: 'center', margin: 0 }}>
-//             <p style={{ fontSize: '18px', lineHeight: '1.6', color: '#4a5568' }}>
-//               {event.description}
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default EventDetails;
-
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import { useParams, Link } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
+import { getEventById } from '../data/events';
+import styles from './EventDetails.module.css';
 
 function EventDetails() {
   const { id } = useParams();
-
-  const eventDetails = {
-    1: {
-      title: 'Client Appreciation Event 1',
-      image: '/Images/Events/Aug-25 (1).jpeg',
-      description: `The Client Appreciation Event hosted by SP-VK Vision Financial focuses on health and financial security. 
-        Mr. S G Sivakumar discusses updates on osteoarthritis knee treatments. Venkat Kumar explores how CPF and SRS can be 
-        leveraged for a secure retirement. Akila Manikandan talks about strategies for a worry-free retirement.`,
-    },
-    2: {
-      title: 'Client Appreciation Event 2',
-      image: '/Images/Events/Sep-29 (1).jpeg',
-      description: `This Client Appreciation Event invites families and friends to learn about nasal allergies and sinus issues. 
-        Dr. Ravi Seshadri, an ENT surgeon, presents valuable insights on managing these conditions. Venkat Kumar covers CPF and SRS 
-        options for securing a comfortable retirement. Akila Manikandan discusses financial planning for a worry-free future.`,
-    },
-  };
-
-  const event = eventDetails[id];
+  const event = getEventById(id);
+  const hasPhotos = event?.photos?.length > 0;
+  const hasVideos = event?.videos?.length > 0;
 
   if (!event) {
     return (
-      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
-        <p style={{ textAlign: 'center', fontSize: '18px', color: '#4a5568' }}>Event not found.</p>
-      </div>
+      <>
+        <Navbar />
+        <main className={styles.page}>
+          <section className={styles.notFound}>
+            <h1>Event not found</h1>
+            <p>The event you are looking for may have been moved or is no longer available.</p>
+            <Link to="/events" className={styles.backLink}>
+              Browse events
+            </Link>
+          </section>
+        </main>
+        <Footer />
+      </>
     );
   }
 
   return (
     <>
-      <div style={{ marginTop: '80px' }}></div>
       <Navbar />
-
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '24px 16px' }}>
-        {/* Page Heading */}
-        <h1 style={{ fontSize: '32px', textAlign: 'center', fontWeight: 'bold', marginBottom: '24px' }}>
-          {event.title}
-        </h1>
-
-        {/* Card Layout */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row', // Use row direction for left-right layout
-            border: '1px solid #e2e8f0',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            flexWrap: 'wrap', // Wrap on smaller screens
-            justifyContent: 'center', // Center content in the card
-          }}
-        >
-          {/* Left side: Image */}
-          <div style={{ flex: '1', minWidth: '390px', maxWidth: '50%', margin: 0 }}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}> {/* Center image on mobile */}
-              <img
-                src={event.image}
-                alt={event.title}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                }}
-              />
+      <main className={styles.page}>
+        <section className={styles.hero}>
+          <div className={styles.heroInner}>
+            <div className={styles.heroInfo}>
+              <p className={styles.eyebrow}>{event.isUpcoming ? 'Upcoming event' : 'Event recap'}</p>
+              <h1>{event.title}</h1>
+              <div className={styles.meta}>
+                <span>{event.date}</span>
+                <span>{event.location}</span>
+              </div>
+            </div>
+            <div className={styles.heroMedia}>
+              <img src={event.thumbnail} alt={`${event.title} overview`} loading="lazy" />
             </div>
           </div>
+        </section>
 
-          {/* Right side: Description */}
-          <div style={{ flex: '1', padding: '24px', textAlign: 'center', margin: 0 }}>
-            <p style={{ fontSize: '18px', lineHeight: '1.6', color: '#4a5568', margin: '0 auto', maxWidth: '600px' }}>
-              {event.description}
+        <section className={styles.summarySection}>
+          <div className={styles.summaryContent}>
+            <h2>{event.isUpcoming ? 'What to expect' : 'What happened'}</h2>
+            <p>{event.summary}</p>
+            <ul className={styles.summaryList}>
+              {event.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {(event.schedule?.length || event.registration) && (
+              <div className={styles.summaryExtras}>
+                {event.schedule?.length > 0 && (
+                  <div className={styles.scheduleCard}>
+                    <h3>Event essentials</h3>
+                    <ul>
+                      {event.schedule.map((detail) => (
+                        <li key={`${detail.label}-${detail.value}`}>
+                          <span>{detail.label}</span>
+                          <span>{detail.value}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {event.registration && (
+                  <div className={styles.registrationCard}>
+                    <h3>Reserve your seat</h3>
+                    <p>{event.registration.note}</p>
+                    <a
+                      href={event.registration.ctaUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.registrationButton}
+                    >
+                      {event.registration.ctaLabel}
+                    </a>
+                    {event.registration.contactNumber && (
+                      <span className={styles.registrationContact}>
+                        Need help? Call {event.registration.contactNumber}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {hasPhotos && (
+          <section className={styles.gallerySection}>
+            <div className={styles.sectionHeader}>
+              <h2>Moments from the day</h2>
+              <p>A look at the atmosphere our community created together.</p>
+            </div>
+            <div className={styles.photoGrid}>
+              {event.photos.map((photo, index) => (
+                <figure
+                  key={photo.src}
+                  className={`${styles.photoCard} ${photo.layout ? styles[photo.layout] : ''}`.trim()}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt || `${event.title} highlight ${index + 1}`}
+                    loading="lazy"
+                  />
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {hasVideos && (
+          <section className={styles.videoSection}>
+            <div className={styles.sectionHeader}>
+              <h2>{event.isUpcoming ? 'Preview the experience' : 'Watch the highlights'}</h2>
+              <p>
+                {event.isUpcoming
+                  ? 'Share this preview with loved ones you would like to invite.'
+                  : 'Relive the key moments and share them with your team.'}
+              </p>
+            </div>
+            <div className={styles.videoGrid}>
+              {event.videos.map((video) => (
+                <div key={video.url} className={styles.videoCard}>
+                  <div className={styles.videoWrapper}>
+                    <iframe
+                      src={video.url}
+                      title={video.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <p>{video.title}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className={styles.takeawaySection}>
+          <div className={styles.sectionHeader}>
+            <h2>{event.isUpcoming ? 'Why join us' : 'Key takeaways'}</h2>
+            <p>
+              {event.isUpcoming
+                ? 'Here’s what you will walk away with when you spend the afternoon with us.'
+                : 'Bring these ideas into your next conversation or planning session.'}
             </p>
           </div>
-        </div>
-      </div>
+          <ul className={styles.takeawayList}>
+            {event.takeaways.map((takeaway) => (
+              <li key={takeaway}>{takeaway}</li>
+            ))}
+          </ul>
+          <Link to="/events" className={styles.backLink}>
+            {event.isUpcoming ? 'Explore other events' : 'Back to events'}
+          </Link>
+        </section>
+      </main>
+      <WhatsAppButton />
+      <Footer />
     </>
   );
 }

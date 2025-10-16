@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -11,6 +11,7 @@ function EventDetails() {
   const event = getEventById(id);
   const hasPhotos = event?.photos?.length > 0;
   const hasVideos = event?.videos?.length > 0;
+  const [activePhoto, setActivePhoto] = useState(null);
 
   if (!event) {
     return (
@@ -44,9 +45,14 @@ function EventDetails() {
                 <span>{event.location}</span>
               </div>
             </div>
-            <div className={styles.heroMedia}>
+            <button
+              type="button"
+              className={styles.heroMedia}
+              onClick={() => setActivePhoto({ src: event.thumbnail, alt: `${event.title} overview` })}
+              aria-label="View featured event photo"
+            >
               <img src={event.thumbnail} alt={`${event.title} overview`} loading="lazy" />
-            </div>
+            </button>
           </div>
         </section>
 
@@ -110,11 +116,20 @@ function EventDetails() {
                   key={photo.src}
                   className={`${styles.photoCard} ${photo.layout ? styles[photo.layout] : ''}`.trim()}
                 >
-                  <img
-                    src={photo.src}
-                    alt={photo.alt || `${event.title} highlight ${index + 1}`}
-                    loading="lazy"
-                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActivePhoto({ src: photo.src, alt: photo.alt || `${event.title} highlight ${index + 1}` })
+                    }
+                    className={styles.photoButton}
+                    aria-label={`View ${photo.alt || `${event.title} highlight ${index + 1}`}`}
+                  >
+                    <img
+                      src={photo.src}
+                      alt={photo.alt || `${event.title} highlight ${index + 1}`}
+                      loading="lazy"
+                    />
+                  </button>
                 </figure>
               ))}
             </div>
@@ -168,6 +183,28 @@ function EventDetails() {
             {event.isUpcoming ? 'Explore other events' : 'Back to events'}
           </Link>
         </section>
+        {activePhoto && (
+          <div
+            className={styles.lightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Expanded event photo"
+            onClick={() => setActivePhoto(null)}
+          >
+            <div className={styles.lightboxInner} onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => setActivePhoto(null)}
+                aria-label="Close photo preview"
+              >
+                ×
+              </button>
+              <img src={activePhoto.src} alt={activePhoto.alt} />
+              {activePhoto.alt && <p>{activePhoto.alt}</p>}
+            </div>
+          </div>
+        )}
       </main>
       <WhatsAppButton />
       <Footer />

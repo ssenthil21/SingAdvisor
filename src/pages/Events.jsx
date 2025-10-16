@@ -7,6 +7,13 @@ import { events } from '../data/events';
 import styles from './Events.module.css';
 
 function Events() {
+  const upcomingEvents = [...events]
+    .filter((event) => event.isUpcoming)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  const pastEvents = [...events]
+    .filter((event) => !event.isUpcoming)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return (
     <>
       <Navbar />
@@ -22,13 +29,69 @@ function Events() {
           </div>
         </section>
 
+        {upcomingEvents.length > 0 && (
+          <section className={styles.upcomingSection}>
+            <div className={styles.sectionHeader}>
+              <h2>Upcoming experience</h2>
+              <p>Secure your seat at our next gathering and stay ahead of the curve.</p>
+            </div>
+            <div className={styles.upcomingGrid}>
+              {upcomingEvents.map((event) => (
+                <article key={event.id} className={styles.upcomingCard}>
+                  <div className={styles.upcomingMedia}>
+                    <img src={event.thumbnail} alt={`${event.title} preview`} loading="lazy" />
+                  </div>
+                  <div className={styles.upcomingContent}>
+                    <header className={styles.upcomingHeader}>
+                      <div className={styles.upcomingMeta}>
+                        <span className={styles.dateBadge}>{event.date}</span>
+                        <span className={styles.locationPill}>{event.location}</span>
+                      </div>
+                      <h3>{event.title}</h3>
+                    </header>
+                    <p className={styles.upcomingSummary}>{event.summary}</p>
+                    <ul className={styles.highlightList}>
+                      {event.highlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                    {event.registration && (
+                      <div className={styles.registrationBlock}>
+                        <p>{event.registration.note}</p>
+                        <div className={styles.registrationActions}>
+                          <a
+                            href={event.registration.ctaUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.primaryCta}
+                          >
+                            {event.registration.ctaLabel}
+                          </a>
+                          <Link className={styles.secondaryCta} to={`/events/${event.id}`}>
+                            View full details
+                          </Link>
+                        </div>
+                        {event.registration.contactNumber && (
+                          <span className={styles.contactNote}>
+                            Call {event.registration.contactNumber} for assistance
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className={styles.gridSection}>
           <div className={styles.sectionHeader}>
             <h2>Latest highlights</h2>
             <p>Catch up on recent gatherings and reserve your spot for what&apos;s coming up next.</p>
           </div>
           <div className={styles.cardGrid}>
-            {events.map((event) => (
+            {pastEvents.map((event) => (
               <article key={event.id} className={styles.card}>
                 <header className={styles.cardHeader}>
                   <div className={styles.headerText}>
